@@ -41,7 +41,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Input\UserInputManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ColorSequence.cs" />
     <Compile Include="Types\NumberRange.cs" />

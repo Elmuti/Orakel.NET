@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Orakel
+namespace OrakelGame
 {
     /// <summary>
     /// The main class.

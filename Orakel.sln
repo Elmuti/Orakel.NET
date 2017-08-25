@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orakel", "Orakel\Orakel.csproj", "{F77A84D1-01E7-4EE2-A992-52587BCBD7FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrakelGame", "OrakelGame\OrakelGame.csproj", "{8A2CF438-BE45-4B3C-B96F-E471E62937C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{F77A84D1-01E7-4EE2-A992-52587BCBD7FA}.Debug|x86.Build.0 = Debug|x86
 		{F77A84D1-01E7-4EE2-A992-52587BCBD7FA}.Release|x86.ActiveCfg = Release|x86
 		{F77A84D1-01E7-4EE2-A992-52587BCBD7FA}.Release|x86.Build.0 = Release|x86
+		{8A2CF438-BE45-4B3C-B96F-E471E62937C0}.Debug|x86.ActiveCfg = Debug|x86
+		{8A2CF438-BE45-4B3C-B96F-E471E62937C0}.Debug|x86.Build.0 = Debug|x86
+		{8A2CF438-BE45-4B3C-B96F-E471E62937C0}.Release|x86.ActiveCfg = Release|x86
+		{8A2CF438-BE45-4B3C-B96F-E471E62937C0}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

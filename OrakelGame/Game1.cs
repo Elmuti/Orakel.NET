@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Orakel;
 
-namespace Orakel
+namespace OrakelGame
 {
     /// <summary>
     /// This is the main type for your game.

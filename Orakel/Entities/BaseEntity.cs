@@ -18,16 +18,21 @@ namespace Orakel
     /// <summary>
     /// Base class for all classes in the type hierarchy. You cannot directly create BaseEntities.
     /// </summary>
-    public class BaseEntity : Updatable
+    public class BaseEntity : Updatable, Destroyable
     {
         public event ChangedEventHandler Changed;
         public event ChildAddedEventHandler ChildAdded;
         public event ChildRemovedEventHandler ChildRemoved;
 
-
         bool Updatable.IsUpdated { get; }
+        bool Destroyable.IsDestroyable { get; }
 
         void Updatable.Update(Time time)
+        {
+
+        }
+
+        void Destroyable.Destroy()
         {
 
         }

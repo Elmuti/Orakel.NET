@@ -19,6 +19,11 @@ namespace Orakel.Input
             return _buttonsDown.ToArray();
         }
 
+        public bool IsButtonDown(MouseButtons button)
+        {
+            return _buttonsDown.Contains(button);
+        }
+
         public Vector2 GetPosition()
         {
             return new Vector2(X, Y);

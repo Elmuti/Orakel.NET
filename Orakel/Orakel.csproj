@@ -45,19 +45,27 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Brush.cs" />
-    <Compile Include="Entities\Destroyable.cs" />
-    <Compile Include="Entities\Updatable.cs" />
+    <Compile Include="Entities\IDestroyable.cs" />
+    <Compile Include="Entities\IUpdatable.cs" />
+    <Compile Include="Entities\PhysicsEntity.cs" />
     <Compile Include="Input\KeyboardState.cs" />
     <Compile Include="Input\Keys.cs" />
     <Compile Include="Input\MouseButtons.cs" />
     <Compile Include="Input\UserInputManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\GameWindow.cs" />
+    <Compile Include="Rendering\IDrawable.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\Shader.cs" />
+    <Compile Include="Rendering\VertexBuffer.cs" />
     <Compile Include="Types\ColorSequence.cs" />
     <Compile Include="Types\NumberRange.cs" />
     <Compile Include="Types\NumberSequence.cs" />
+    <Compile Include="Types\ObjectHelper.cs" />
     <Compile Include="Types\Time.cs" />
     <Compile Include="Types\UDim2.cs" />
     <Compile Include="Types\UDim.cs" />
+    <Compile Include="Types\Vector3.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +83,11 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Shaders\fragment-shader.fs" />
     <EmbeddedResource Include="Icon.ico" />
     <Content Include="OpenTK.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -88,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shaders\vertex-shader.vs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

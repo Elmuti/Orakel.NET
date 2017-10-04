@@ -11,37 +11,100 @@ using BulletSharp;
 
 namespace Orakel
 {
-    public delegate void ChangedEventHandler(object sender, EventArgs e);
-    public delegate void ChildAddedEventHandler(object sender, EventArgs e);
-    public delegate void ChildRemovedEventHandler(object sender, EventArgs e);
-
+    public delegate string ChangedEventHandler(object sender);
+    public delegate void ChildAddedEventHandler(BaseEntity child);
+    public delegate void ChildRemovedEventHandler(BaseEntity child);
+     
     /// <summary>
     /// Base class for all classes in the type hierarchy. You cannot directly create BaseEntities.
     /// </summary>
-    public class BaseEntity : Updatable, Destroyable
+    public class BaseEntity : IUpdatable, IDestroyable
     {
+        private float _lifetime = 0f;
+        private bool _archivable = true;
+        private string _name = "";
+        private BaseEntity _parent;
+        HashSet<BaseEntity> _children = new HashSet<BaseEntity>();
+        List<object> _tags = new List<object>();
+
         public event ChangedEventHandler Changed;
         public event ChildAddedEventHandler ChildAdded;
         public event ChildRemovedEventHandler ChildRemoved;
 
-        bool Updatable.IsUpdated { get; }
-        bool Destroyable.IsDestroyable { get; }
 
-        void Updatable.Update(Time time)
+        public BaseEntity[] Children
         {
-
+            get { return _children.ToArray(); }
         }
 
-        void Destroyable.Destroy()
+        /// <summary>
+        /// Returns the full path of this entity
+        /// </summary>
+        public string FullName
         {
-
+            get
+            {
+                if (Parent != null)
+                    return Parent.FullName + "." + Name;
+                else
+                    return Name;
+            }
         }
 
-        private List<BaseEntity> _children = new List<BaseEntity>();
-        private bool _archivable = true;
-        private string _name = "";
-        private BaseEntity _parent;
 
+        internal void AddChild<C>(C ent) where C : BaseEntity
+        {
+            this.ChildAdded.Invoke(ent);
+            _children.Add(ent);
+        }
+
+        internal void SetParent<C>(C parent) where C : BaseEntity
+        {
+            _parent = parent;
+            parent.AddChild(this);
+            //OnParentChanged(parent);
+        }
+
+
+        /// <summary>
+        /// The tags this entity has
+        /// </summary>
+        public List<object> Tags
+        {
+            get
+            {
+                return _tags;
+            }
+        }
+
+        /// <summary>
+        /// Returns whether not the entity has the specified tag
+        /// </summary>
+        /// <param name="tag">The tag</param>
+        /// <returns>True if the entity has the specified tag</returns>
+        public bool HasTag(object tag)
+        {
+            return _tags.Contains(tag);
+        }
+
+
+        public bool IsUpdated { get; }
+        public bool IsDestroyable { get; }
+
+        public void Destroy()
+        {
+            foreach (IDestroyable ent in Children)
+            {
+                ChildRemoved(this);
+                ent.Destroy();
+            }
+        }
+
+        public void Update(Time time)
+        {
+            float delta = time.SinceLastUpdate.Milliseconds / 1000f;
+            _lifetime += delta;
+        }
 
         /// <summary>
         /// Determines if an object can be Cloned or saved to file.
@@ -49,6 +112,7 @@ namespace Orakel
         public bool Archivable
         {
             get { return _archivable; }
+            set { _archivable = value; }
         }
 
         /// <summary>
@@ -60,7 +124,7 @@ namespace Orakel
             set
             {
                 _name = value;
-                Changed(this, EventArgs.Empty);
+                //Changed(this, EventArgs.Empty);
             }
         }
 
@@ -70,6 +134,20 @@ namespace Orakel
         public BaseEntity Parent
         {
             get { return _parent; }
+            set
+            {
+                if (Parent != null)
+                {
+                    _parent.ChildRemoved(this);
+                    _parent.RemoveChild(this);
+                }
+                SetParent(value);
+            }
+        }
+
+        internal void RemoveChild(BaseEntity child)
+        {
+            _children.Remove(child);
         }
 
         /// <summary>
@@ -77,8 +155,11 @@ namespace Orakel
         /// </summary>
         public void ClearAllChildren()
         {
-            // WARNING: MEMORY LEAK ???
-            // TODO: REMOVE ACTUAL INSTANCES INSTEAD OF CLEARING LIST
+            // TODO: WARNING: POSSIBLE MEMORY LEAK ???
+            foreach(BaseEntity child in Children)
+            {
+                child.Destroy();
+            }
             _children.Clear();
         }
 
@@ -89,11 +170,16 @@ namespace Orakel
         /// <returns></returns>
         public BaseEntity FindFirstChild(string name)
         {
-            var matches = _children.Where(entity => entity.Name == name);
+            var matches = Children.Where(entity => entity.Name == name);
             if (matches.Count() > 0)
                 return matches.First();
             else
                 return null;
+        }
+
+        public override string ToString()
+        {
+            return FullName;
         }
     }
 }

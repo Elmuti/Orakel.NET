@@ -13,7 +13,7 @@ namespace Orakel
     /// <summary>
     /// Interface for updatable entities.
     /// </summary>
-    interface Updatable
+    interface IUpdatable
     {
         bool IsUpdated { get; }
         void Update(Time time);

@@ -1,4 +1,9 @@
 ﻿using System;
+using Orakel;
+//using Microsoft.Xna.Framework;
+//using OpenTK;
+//using OpenTK.Graphics;
+using Orakel.Graphics;
 
 namespace OrakelGame
 {
@@ -14,7 +19,13 @@ namespace OrakelGame
         static void Main()
         {
             using (var game = new Game1())
-                game.Run();
+            game.Run();
+            //Orakel.Graphics.GameWindow wnd = new Orakel.Graphics.GameWindow();
+            //wnd.Run();
+            //VertexBuffer<ColouredVertex> b = new VertexBuffer<ColouredVertex>(3);
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(0, 5, 0), new Color4(255, 255, 255, 255)));
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(2.5f, 0, 0), new Color4(255, 255, 255, 255)));
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(-2.5f, 0, 0), new Color4(255, 255, 255, 255)));
         }
     }
 }

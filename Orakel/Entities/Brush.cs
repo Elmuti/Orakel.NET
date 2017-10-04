@@ -7,43 +7,28 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BulletSharp;
-
+using System.Runtime.Serialization;
 
 namespace Orakel
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Brush : Updatable, Destroyable
+    public class Brush : BaseEntity, Graphics.IDrawable
     {
         internal static float BRUSH_MIN_SIZE = 0.001f;
         internal static float BRUSH_MAX_SIZE = 5120f;
+        private Vector3 _position = Vector3.Zero;
+        private Vector3 _size = Vector3.Zero;
 
-        bool Updatable.IsUpdated { get; }
-        bool Destroyable.IsDestroyable { get; }
-
-        void Updatable.Update(Time time)
-        {
-
-        }
-
-        void Destroyable.Destroy()
-        {
-
-        }
-
-
-
-        public Vector3 _position = Vector3.Zero;
-        public Vector3 _size = Vector3.One;
-        //public Texture3D _texture;
-
+        public int ZIndex { get; set; }
 
         public Vector3 Position
         {
             get { return _position; }
             set { _position = value; }
         }
+
 
         public Vector3 Size
         {
@@ -56,6 +41,12 @@ namespace Orakel
                     Utils.Clamp(value.Z, BRUSH_MIN_SIZE, BRUSH_MAX_SIZE)
                 );
             }
+        }
+
+
+        public void Draw(Time time)
+        {
+
         }
 
         public Brush()

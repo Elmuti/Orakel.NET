@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Runtime.Serialization;
 
 namespace Orakel
 {
     /// <summary>
     /// UDim stands for Universal Dimension, and uses 2 coordinates; Scale and an Offset. These are used to figure out where exactly the UDim's position is.
     /// </summary>
+    [Serializable]
     public class UDim
     {
         private int _offset = 0;
@@ -44,7 +45,7 @@ namespace Orakel
 
 
         /// <summary>
-        /// Creates a new UDim from the specified components.
+        /// Creates a new UDim from the specified _children.
         /// </summary>
         /// <param name="scale"></param>
         /// <param name="offset"></param>

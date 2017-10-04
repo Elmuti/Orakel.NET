@@ -20,25 +20,29 @@ namespace OrakelGame
             Content.RootDirectory = "Content";
         }
 
-        void EntChanged()
+        void EntChanged(BaseEntity e)
         {
-
+            Console.WriteLine("workspace.Model received a new child: " + e.FullName);
         }
 
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            BaseEntity ent = new BaseEntity();
+            Brush workspace = new Brush();
+            Brush mdl = new Brush();
+            Brush part = new Brush();
 
-            ent.Changed += new ChangedEventHandler(EntChanged);
+            workspace.Name = "workspace";
+            mdl.Name = "Model";
+            part.Name = "Part";
+            mdl.Parent = workspace;
+            mdl.ChildAdded += new ChildAddedEventHandler(EntChanged);
 
+            part.Parent = mdl;
+
+
+            Console.WriteLine(part.FullName);
+            Console.WriteLine("DONE!");
 
             base.Initialize();
         }

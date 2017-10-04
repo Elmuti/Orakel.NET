@@ -13,7 +13,7 @@ namespace Orakel
     /// <summary>
     /// Interface for destroyable entities.
     /// </summary>
-    interface Destroyable
+    interface IDestroyable
     {
         bool IsDestroyable { get; }
         void Destroy();

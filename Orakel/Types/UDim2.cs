@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Runtime.Serialization;
 
 namespace Orakel
 {
     /// <summary>
     /// A UDim2 is a Data Type composed of two UDims, one for the X coordinate and one for the Y coordinate, used to position and size GUIs.
     /// </summary>
+    [Serializable]
     public class UDim2
     {
         /// <summary>

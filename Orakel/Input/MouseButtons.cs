@@ -8,10 +8,10 @@ namespace Orakel.Input
 {
     public enum MouseButtons
     {
-        LeftButton = 0,
-        MiddleButton = 1,
-        RightButton = 2,
-        XButton1 = 3,
-        XButton2 = 4
+        LeftButton,
+        MiddleButton,
+        RightButton,
+        XButton1,
+        XButton2
     }
 }

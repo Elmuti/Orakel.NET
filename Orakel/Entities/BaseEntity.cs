@@ -11,7 +11,7 @@ using BulletSharp;
 
 namespace Orakel
 {
-    public delegate string ChangedEventHandler(object sender);
+    //public delegate string ChangedEventHandler(object sender);
     public delegate void ChildAddedEventHandler(BaseEntity child);
     public delegate void ChildRemovedEventHandler(BaseEntity child);
      
@@ -27,7 +27,7 @@ namespace Orakel
         HashSet<BaseEntity> _children = new HashSet<BaseEntity>();
         List<object> _tags = new List<object>();
 
-        public event ChangedEventHandler Changed;
+        //public event ChangedEventHandler Changed;
         public event ChildAddedEventHandler ChildAdded;
         public event ChildRemovedEventHandler ChildRemoved;
 
@@ -52,13 +52,13 @@ namespace Orakel
         }
 
 
-        internal void AddChild<C>(C ent) where C : BaseEntity
+        protected virtual void AddChild<C>(C ent) where C : BaseEntity
         {
-            this.ChildAdded.Invoke(ent);
+            ChildAdded?.Invoke(ent);
             _children.Add(ent);
         }
 
-        internal void SetParent<C>(C parent) where C : BaseEntity
+        protected virtual void SetParent<C>(C parent) where C : BaseEntity
         {
             _parent = parent;
             parent.AddChild(this);
@@ -95,7 +95,7 @@ namespace Orakel
         {
             foreach (IDestroyable ent in Children)
             {
-                ChildRemoved(this);
+                ChildRemoved?.Invoke(this);
                 ent.Destroy();
             }
         }
@@ -109,11 +109,7 @@ namespace Orakel
         /// <summary>
         /// Determines if an object can be Cloned or saved to file.
         /// </summary>
-        public bool Archivable
-        {
-            get { return _archivable; }
-            set { _archivable = value; }
-        }
+        public bool Archivable { get; set; }
 
         /// <summary>
         /// A non-unique identifier for the object.
@@ -138,7 +134,7 @@ namespace Orakel
             {
                 if (Parent != null)
                 {
-                    _parent.ChildRemoved(this);
+                    _parent.ChildRemoved?.Invoke(this);
                     _parent.RemoveChild(this);
                 }
                 SetParent(value);

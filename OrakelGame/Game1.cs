@@ -36,10 +36,12 @@ namespace OrakelGame
             mdl.Name = "Model";
             part.Name = "Part";
             mdl.Parent = workspace;
-            mdl.ChildAdded += new ChildAddedEventHandler(EntChanged);
-
             part.Parent = mdl;
 
+            foreach(BaseEntity e in workspace.Children)
+            {
+                Console.WriteLine("Child of workspace: " + e.FullName);
+            }
 
             Console.WriteLine(part.FullName);
             Console.WriteLine("DONE!");

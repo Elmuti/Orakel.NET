@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Orakel
 {
@@ -15,6 +16,14 @@ namespace Orakel
             else return val;
         }
 
+
+        public static StreamReader GenerateStreamFromString(string s)
+        {
+            byte[] byteArray = Encoding.UTF8.GetBytes(s);
+            MemoryStream stream = new MemoryStream(byteArray);
+            StreamReader reader = new StreamReader(stream);
+            return reader;
+        }
 
         public static class MergeSort
         {

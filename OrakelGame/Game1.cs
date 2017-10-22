@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OpenTK.Graphics.OpenGL;
 using Orakel;
 
 namespace OrakelGame
@@ -28,24 +29,11 @@ namespace OrakelGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Brush workspace = new Brush();
-            Brush mdl = new Brush();
-            Brush part = new Brush();
+            //PhysicsEntity ent = new PhysicsEntity(Orakel.Vector3.Zero, new Orakel.Vector3(5, 5, 5), Material.Metal);
+            //Console.WriteLine("The total mass of this entity is: " + ent.Mass + " kg");
 
-            workspace.Name = "workspace";
-            mdl.Name = "Model";
-            part.Name = "Part";
-            mdl.Parent = workspace;
-            part.Parent = mdl;
-
-            foreach(BaseEntity e in workspace.Children)
-            {
-                Console.WriteLine("Child of workspace: " + e.FullName);
-            }
-
-            Console.WriteLine(part.FullName);
-            Console.WriteLine("DONE!");
-
+            float metaldensity = MaterialData.Attributes[Material.Metal].Density;
+            Console.WriteLine("metal density: " + metaldensity);
             base.Initialize();
         }
 
@@ -94,6 +82,15 @@ namespace OrakelGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Begin(OpenTK.Graphics.OpenGL.PrimitiveType.Triangles);
+
+            GL.Vertex2(-0.5f, -0.5f);
+            GL.Vertex2(0.0f, 0.5f);
+            GL.Vertex2(0.5f, -0.5f);
+
+            GL.End();
 
             base.Draw(gameTime);
         }

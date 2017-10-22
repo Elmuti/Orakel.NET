@@ -1,9 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Reflection;
+using System.Resources;
+using IniParser;
+using IniParser.Model;
 
 namespace Orakel
 {
@@ -32,6 +37,9 @@ namespace Orakel
         Fabric
     }
 
+    /// <summary>
+    /// Contains the physical properties of a material
+    /// </summary>
     public struct MaterialData
     {
         private static Dictionary<Material, MaterialData> _materialAttributes;
@@ -41,32 +49,44 @@ namespace Orakel
         public float Friction;
         public float Elasticity;
 
-
-        public static Dictionary<Material, MaterialData> ReadFromFile(string path)
+        /// <summary>
+        /// Reads material physical properties from an .ini -file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Dictionary<Material, MaterialData> ReadFromFile(string file)
         {
             Dictionary<Material, MaterialData> matAtt = new Dictionary<Material, MaterialData>();
-            var matf = new IniFile();
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadData(Utils.GenerateStreamFromString(file));
+
 
             foreach (string mat in Enum.GetNames(typeof(Material)))
             {
-                float d, f, e;
+                try { 
+                    float d, f, e;
 
-                string ds = matf.Read("Density", mat);
-                string fs = matf.Read("Friction", mat);
-                string es = matf.Read("Elasticity", mat);
+                    string ds = data[mat]["Density"];
+                    string fs = data[mat]["Friction"];
+                    string es = data[mat]["Elasticity"];
 
-                d = float.Parse(ds, CultureInfo.InvariantCulture.NumberFormat);
-                f = float.Parse(fs, CultureInfo.InvariantCulture.NumberFormat);
-                e = float.Parse(es, CultureInfo.InvariantCulture.NumberFormat);
+                    d = float.Parse(ds, CultureInfo.InvariantCulture.NumberFormat);
+                    f = float.Parse(fs, CultureInfo.InvariantCulture.NumberFormat);
+                    e = float.Parse(es, CultureInfo.InvariantCulture.NumberFormat);
 
-                Material curMat = (Material)Enum.Parse(typeof(Material), mat, true);
-                matAtt.Add(curMat, new MaterialData(d, f, e));
+                    Material curMat = (Material)Enum.Parse(typeof(Material), mat, true);
+                    matAtt.Add(curMat, new MaterialData(d, f, e));
+                }
+                catch (System.FormatException e)
+                {
+                    Console.WriteLine("Error reading from {0}. Message = {1}", file, e.Message);
+                }
             }
             return matAtt;
         }
 
 
-        public static Dictionary<Material, MaterialData> MaterialAttributes
+        public static Dictionary<Material, MaterialData> Attributes
         {
             get
             {
@@ -74,7 +94,7 @@ namespace Orakel
                     return _materialAttributes;
                 else
                 {
-                    _materialAttributes = ReadFromFile("");
+                    _materialAttributes = ReadFromFile(Orakel.Properties.Resources.Materials);
                     return _materialAttributes;
                 }
             }

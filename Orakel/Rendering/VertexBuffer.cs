@@ -15,10 +15,10 @@ namespace Orakel.Graphics
     {
         public const int Size = (3 + 4) * 4; // size of struct in bytes
 
-        private readonly Vector3 position;
+        private readonly OpenTK.Vector3 position;
         private readonly Color4 color;
 
-        public ColouredVertex(Vector3 position, Color4 color)
+        public ColouredVertex(OpenTK.Vector3 position, Color4 color)
         {
             this.position = position;
             this.color = color;
@@ -44,9 +44,8 @@ namespace Orakel.Graphics
             if (GraphicsContext.CurrentContext == null || GraphicsContext.CurrentContext.IsDisposed)
                 return;
 
-            //TODO: FIX THIS:
             //remove un-used vertex buffers from memory
-            //GL.DeleteBuffer(this);
+            GL.DeleteBuffer(this.handle);
 
             this.disposed = true;
         }

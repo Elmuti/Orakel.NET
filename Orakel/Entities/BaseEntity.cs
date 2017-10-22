@@ -18,7 +18,7 @@ namespace Orakel
     /// <summary>
     /// Base class for all classes in the type hierarchy. You cannot directly create BaseEntities.
     /// </summary>
-    public class BaseEntity : IUpdatable, IDestroyable
+    public abstract class BaseEntity : IUpdatable, IDestroyable
     {
         private float _lifetime = 0f;
         private bool _archivable = true;

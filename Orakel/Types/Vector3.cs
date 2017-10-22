@@ -22,7 +22,7 @@ namespace Orakel
         public float Y { get { return _y; } }
         public float Z { get { return _z; } }
 
-        public static Vector3 Zero { get { return new Vector3(0, 0.0f, 0.0f); } }
+        public static Vector3 Zero { get { return new Vector3(0.0f, 0.0f, 0.0f); } }
 
         /// <summary>
         /// Normalized copy of the vector

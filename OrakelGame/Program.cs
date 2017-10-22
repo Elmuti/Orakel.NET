@@ -23,9 +23,9 @@ namespace OrakelGame
             //Orakel.Graphics.GameWindow wnd = new Orakel.Graphics.GameWindow();
             //wnd.Run();
             //VertexBuffer<ColouredVertex> b = new VertexBuffer<ColouredVertex>(3);
-            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(0, 5, 0), new Color4(255, 255, 255, 255)));
-            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(2.5f, 0, 0), new Color4(255, 255, 255, 255)));
-            //b.AddVertex(new ColouredVertex(new OpenTK.Vector3(-2.5f, 0, 0), new Color4(255, 255, 255, 255)));
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector2(0, 5, 0), new Color4(255, 255, 255, 255)));
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector2(2.5f, 0, 0), new Color4(255, 255, 255, 255)));
+            //b.AddVertex(new ColouredVertex(new OpenTK.Vector2(-2.5f, 0, 0), new Color4(255, 255, 255, 255)));
         }
     }
 }

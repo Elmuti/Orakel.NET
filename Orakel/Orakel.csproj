@@ -50,6 +50,7 @@
     <Compile Include="Entities\IDestroyable.cs" />
     <Compile Include="Entities\IUpdatable.cs" />
     <Compile Include="Entities\PhysicsEntity.cs" />
+    <Compile Include="Entities\TextLabel.cs" />
     <Compile Include="Entities\Workspace.cs" />
     <Compile Include="Input\KeyboardState.cs" />
     <Compile Include="Input\Keys.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="Types\Ray.cs" />
     <Compile Include="Types\RayResult.cs" />
     <Compile Include="Types\Region3.cs" />
+    <Compile Include="Types\ScriptSignal.cs" />
+    <Compile Include="Types\TextAlignment.cs" />
     <Compile Include="Types\Time.cs" />
     <Compile Include="Types\UDim2.cs" />
     <Compile Include="Types\UDim.cs" />
@@ -94,6 +97,12 @@
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="KeraLua">
+      <HintPath>.\KeraLua.dll</HintPath>
+    </Reference>
+    <Reference Include="NLua">
+      <HintPath>.\NLua.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\OpenTK.dll</HintPath>
     </Reference>
@@ -108,6 +117,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="lua52.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Shaders\fragment-shader.fs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -11,10 +11,6 @@ using BulletSharp;
 
 namespace Orakel
 {
-    //public delegate string ChangedEventHandler(object sender);
-    public delegate void ChildAddedEventHandler(BaseEntity child);
-    public delegate void ChildRemovedEventHandler(BaseEntity child);
-     
     /// <summary>
     /// Base class for all classes in the type hierarchy. You cannot directly create BaseEntities.
     /// </summary>
@@ -27,10 +23,8 @@ namespace Orakel
         HashSet<BaseEntity> _children = new HashSet<BaseEntity>();
         List<object> _tags = new List<object>();
 
-        //public event ChangedEventHandler Changed;
-        public event ChildAddedEventHandler ChildAdded;
-        public event ChildRemovedEventHandler ChildRemoved;
-
+        public ScriptSignal ChildAdded = new ScriptSignal();
+        public ScriptSignal ChildRemoved = new ScriptSignal();
 
         public BaseEntity[] Children
         {
@@ -54,7 +48,7 @@ namespace Orakel
 
         protected virtual void AddChild<C>(C ent) where C : BaseEntity
         {
-            ChildAdded?.Invoke(ent);
+            ChildAdded.Fire(ent);
             _children.Add(ent);
         }
 
@@ -95,7 +89,7 @@ namespace Orakel
         {
             foreach (IDestroyable ent in Children)
             {
-                ChildRemoved?.Invoke(this);
+                ChildRemoved.Fire(Parent);
                 ent.Destroy();
             }
         }
@@ -134,7 +128,7 @@ namespace Orakel
             {
                 if (Parent != null)
                 {
-                    _parent.ChildRemoved?.Invoke(this);
+                    _parent.ChildRemoved.Fire(this);
                     _parent.RemoveChild(this);
                 }
                 SetParent(value);

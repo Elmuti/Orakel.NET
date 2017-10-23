@@ -37,17 +37,40 @@ namespace Orakel
         Fabric
     }
 
+    public enum MaterialSound
+    {
+        ImpactSoft,
+        ImpactMed,
+        ImpactHard,
+        ImpactBullet,
+        Break,
+        Scrape
+    }
+
     /// <summary>
     /// Contains the physical properties of a material
     /// </summary>
     public struct MaterialData
     {
         private static Dictionary<Material, MaterialData> _materialAttributes;
+        private float _density;
+        private float _friction;
+        private float _elasticity;
 
+        /// <summary>
+        /// Density of the material. Determines mass and buoyancy.
+        /// </summary>
+        public float Density    { get { return _density; } }
 
-        public float Density;
-        public float Friction;
-        public float Elasticity;
+        /// <summary>
+        /// Friction of the material.
+        /// </summary>
+        public float Friction   { get { return _friction; } }
+
+        /// <summary>
+        /// Determines the bounciness of the material.
+        /// </summary>
+        public float Elasticity { get { return _elasticity; } }
 
         /// <summary>
         /// Reads material physical properties from an .ini -file
@@ -102,9 +125,9 @@ namespace Orakel
 
         public MaterialData(float d, float f, float e)
         {
-            Density = d;
-            Friction = f;
-            Elasticity = e;
+            _density = d;
+            _friction = f;
+            _elasticity = e;
         }
     }
 }

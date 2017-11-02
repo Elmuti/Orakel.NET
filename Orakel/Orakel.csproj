@@ -49,7 +49,9 @@
     <Compile Include="Entities\GuiObject.cs" />
     <Compile Include="Entities\IDestroyable.cs" />
     <Compile Include="Entities\IUpdatable.cs" />
+    <Compile Include="Entities\ModuleScript.cs" />
     <Compile Include="Entities\PhysicsEntity.cs" />
+    <Compile Include="Entities\Script.cs" />
     <Compile Include="Entities\TextLabel.cs" />
     <Compile Include="Entities\Workspace.cs" />
     <Compile Include="Input\KeyboardState.cs" />

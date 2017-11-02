@@ -91,6 +91,7 @@ namespace Orakel
 
         public Workspace()
         {
+            Name = "Workspace";
             this.Initialize();
         }
     }

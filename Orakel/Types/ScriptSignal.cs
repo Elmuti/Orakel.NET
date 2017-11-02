@@ -23,7 +23,7 @@ namespace Orakel
             return con;
         }
 
-        public void Disconnect(ScriptConnection con)
+        internal void Disconnect(ScriptConnection con)
         {
             _connections.Remove(con);
             if (_connections.Count <= 0)

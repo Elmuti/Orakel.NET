@@ -4,20 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using NLua;
 
 namespace Orakel
 {
     public static class Utils
     {
-        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+        public static float Tick
+        {
+            get
+            {
+                float ms = (float)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds);
+                return ms / 1000f;
+            }
+        }
+
+        public static string GetTypeName(object obj)
+        {
+            return obj.GetType().Name;
+        }
+
+        internal static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
         {
             if (val.CompareTo(min) < 0) return min;
             else if (val.CompareTo(max) > 0) return max;
             else return val;
         }
 
-
-        public static StreamReader GenerateStreamFromString(string s)
+        internal static StreamReader GenerateStreamFromString(string s)
         {
             byte[] byteArray = Encoding.UTF8.GetBytes(s);
             MemoryStream stream = new MemoryStream(byteArray);
@@ -25,7 +39,7 @@ namespace Orakel
             return reader;
         }
 
-        public static class MergeSort
+        internal static class MergeSort
         {
             static private void MainMerge(int[] numbers, int left, int mid, int right)
             {

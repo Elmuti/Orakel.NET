@@ -102,7 +102,7 @@ namespace Orakel
                 }
                 catch (System.FormatException e)
                 {
-                    Console.WriteLine("Error reading from {0}. Message = {1}", file, e.Message);
+                    Console.WriteLine("Error reading material data from {0}. Message = {1}", file, e.Message);
                 }
             }
             return matAtt;

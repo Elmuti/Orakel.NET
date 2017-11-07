@@ -16,23 +16,28 @@ namespace Orakel
     /// </summary>
     public abstract class BaseEntity : IUpdatable, IDestroyable
     {
-        private float _lifetime = 0f;
-        private bool _archivable = true;
-        private string _name = "";
-        private BaseEntity _parent;
         HashSet<BaseEntity> _children = new HashSet<BaseEntity>();
         List<object> _tags = new List<object>();
 
-        public ScriptSignal ChildAdded = new ScriptSignal();
-        public ScriptSignal ChildRemoved = new ScriptSignal();
+        protected float _lifetime = 0f;
+        protected bool _archivable = true;
+        protected string _name = "";
+        protected BaseEntity _parent;
+
+        public ScriptSignal ChildAdded         = new ScriptSignal();
+        public ScriptSignal ChildRemoved       = new ScriptSignal();
+        public ScriptSignal ParentChanged      = new ScriptSignal();
+        public ScriptSignal DescendantAdded    = new ScriptSignal();
+        public ScriptSignal DescendantRemoved  = new ScriptSignal();
+        public ScriptSignal AncestryChanged    = new ScriptSignal();
 
         public BaseEntity[] Children
         {
             get { return _children.ToArray(); }
         }
-
+        
         /// <summary>
-        /// Returns the full path of this entity
+        /// Returns the full hierarchical path of this entity
         /// </summary>
         public string FullName
         {
@@ -56,7 +61,7 @@ namespace Orakel
         {
             _parent = parent;
             parent.AddChild(this);
-            //OnParentChanged(parent);
+            ParentChanged.Fire(parent);
         }
 
 
@@ -166,6 +171,36 @@ namespace Orakel
             else
                 return null;
         }
+
+
+        internal static BaseEntity FindFirstAncestorRecursive(BaseEntity parent, string name)
+        {
+            if (parent.Name == name)
+            {
+                return parent;
+            }
+            else
+            {
+                if (parent.Parent != null)
+                    return FindFirstAncestorRecursive(parent.Parent, name);
+                else
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Returns the first ancestor found with the given name, or null if no such ancestor exists.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public BaseEntity FindFirstAncestor(string name)
+        {
+            if (Parent != null)
+                return FindFirstAncestorRecursive(this, name);
+
+            return null;
+        }
+
 
         public override string ToString()
         {

@@ -7,7 +7,7 @@ using NLua;
 
 namespace Orakel
 {
-    public class ScriptSignal
+    public sealed class ScriptSignal
     {
         private bool _connected = false;
         private List<ScriptConnection> _connections = new List<ScriptConnection>();

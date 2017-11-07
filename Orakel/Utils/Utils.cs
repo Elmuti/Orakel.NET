@@ -24,6 +24,14 @@ namespace Orakel
             return obj.GetType().Name;
         }
 
+        public static bool ObjectIsA(object obj, string className)
+        {
+            if (GetTypeName(obj) == className)
+                return true;
+
+            return false;
+        }
+
         internal static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
         {
             if (val.CompareTo(min) < 0) return min;

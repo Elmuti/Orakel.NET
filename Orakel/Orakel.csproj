@@ -44,13 +44,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\DataStoreService.cs" />
+    <Compile Include="Entities\PlayerGui.cs" />
     <Compile Include="Entities\Brush.cs" />
+    <Compile Include="Entities\Game.cs" />
     <Compile Include="Entities\GuiBase2d.cs" />
     <Compile Include="Entities\GuiObject.cs" />
     <Compile Include="Entities\IDestroyable.cs" />
     <Compile Include="Entities\IUpdatable.cs" />
     <Compile Include="Entities\ModuleScript.cs" />
+    <Compile Include="Entities\OrakelRigidBody.cs" />
     <Compile Include="Entities\PhysicsEntity.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Players.cs" />
     <Compile Include="Entities\Script.cs" />
     <Compile Include="Entities\TextLabel.cs" />
     <Compile Include="Entities\Workspace.cs" />
@@ -63,6 +69,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Rendering\GameWindow.cs" />
     <Compile Include="Rendering\IDrawable.cs" />
@@ -137,7 +148,12 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Shaders\vertex-shader.vs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

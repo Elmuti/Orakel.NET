@@ -15,20 +15,24 @@ namespace Orakel
     /// </summary>
     public abstract class PhysicsEntity : BaseEntity
     {
-        private Vector3 _position = Vector3.Zero;
-        private Vector3 _size = new Vector3(1, 1, 1);
-        private Material _material = Material.Concrete;
-        private bool _anchored = false;
-        private bool _ignoreRays = false;
+        string _id;
 
-        internal RigidBody Rigidbody;
+        protected Vector3 _position = Vector3.Zero;
+        protected Vector3 _size = new Vector3(1, 1, 1);
+        protected Material _material = Material.Concrete;
+        protected bool _anchored = false;
+        protected bool _ignoreRays = false;
+        protected ScriptSignal touched = new ScriptSignal();
 
-        public ScriptSignal Touched = new ScriptSignal();
+        internal OrakelRigidBody Rigidbody;
 
-        public Vector3 Position    { get { return _position; } set { _position = value; } }
-        public Vector3 Size        { get { return _size; } set { _size = value; } }
-        public bool Anchored       { get { return _anchored; } set { _anchored = value; } }
-        public bool IgnoreRays     { get { return _ignoreRays; } set { _ignoreRays = value; } }
+        public string Id             { get { return _id; } }
+        public Vector3 Position      { get { return _position; }    set { _position = value; } }
+        public Vector3 Size          { get { return _size; }        set { _size = value; } }
+        public bool Anchored         { get { return _anchored; }    set { _anchored = value; } }
+        public bool IgnoreRays       { get { return _ignoreRays; }  set { _ignoreRays = value; } }
+        public ScriptSignal Touched  { get { return touched; } }
+
 
         public Material Material
         {
@@ -56,10 +60,11 @@ namespace Orakel
         }
 
 
-        protected virtual void Init()
+        protected virtual void Initialize()
         {
             RigidBodyConstructionInfo info = new RigidBodyConstructionInfo(Mass, new DefaultMotionState(), new BoxShape(GetHalfExtents()));
-            Rigidbody = new RigidBody(info);
+            this._id = Guid.NewGuid().ToString();
+            Rigidbody = new OrakelRigidBody(info, Id);
         }
     }
 }

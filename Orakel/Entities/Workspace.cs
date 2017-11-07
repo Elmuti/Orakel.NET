@@ -13,10 +13,10 @@ namespace Orakel
 {
     public class Workspace : BaseEntity
     {
-        internal BroadphaseInterface broadphase;
         DefaultCollisionConfiguration collisionConfiguration;
         CollisionDispatcher dispatcher;
         SequentialImpulseConstraintSolver solver;
+        internal BroadphaseInterface broadphase;
         internal DiscreteDynamicsWorld dynamicsWorld;
         internal CollisionWorld collisionWorld;
 
